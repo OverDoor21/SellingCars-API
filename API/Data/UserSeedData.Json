@@ -1,0 +1,77 @@
+[
+    {
+        "UserName": "Todd",
+        "Gender": "male",
+        "DateOfBirth": "1950-02-07",
+        "Created": "2019-04-29",
+        "LastActive": "2020-05-16",
+        "City": "Cliff",
+        "Country": "British Indian Ocean Territory",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/90.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Porter",
+        "Gender": "male",
+        "DateOfBirth": "1967-04-09",
+        "Created": "2020-04-05",
+        "LastActive": "2020-06-23",
+        "City": "Welda",
+        "Country": "Christmas Island",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/87.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Mayo",
+        "Gender": "male",
+        "DateOfBirth": "1990-03-23",
+       
+        "Created": "2020-03-14",
+        "LastActive": "2020-05-17",
+        "City": "Clarence",
+        "Country": "Burkina Faso",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/57.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Skinner",
+        "Gender": "male",
+        "DateOfBirth": "1952-12-01",
+        "Created": "2019-01-28",
+        "LastActive": "2020-06-07",
+        "City": "Herald",
+        "Country": "Poland",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/11.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "UserName": "Davis",
+        "DateOfBirth": "1978-03-20",
+        "Created": "2020-02-25",
+        "LastActive": "2020-06-11",
+        "City": "Lupton",
+        "Country": "Luxembourg",
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/men/93.jpg",
+                "IsMain": true
+            }
+        ]
+    }
+]
