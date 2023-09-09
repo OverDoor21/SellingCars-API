@@ -78,3 +78,6 @@ C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\Selli
 C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\obj\Debug\net7.0\EFCoreSqlServerDateOnlyTimeOnly.cs
 C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\bin\Debug\net7.0\Data\UserSeedData.Json
+C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\bin\Debug\net7.0\Data\PhotoSeedData.Json
+C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\aulin\OneDrive\Рабочий стол\Bullshitcodes\Learning Asp\SellingCars\API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

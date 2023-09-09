@@ -32,5 +32,22 @@ namespace API.Data
 
             await context.SaveChangesAsync();
         }
+        public static async Task SeedPhotos(DataContext context){
+            if(await context.Photos.AnyAsync()) return;
+
+            var photosData = await File.ReadAllTextAsync("Data/PhotoSeedData.Json");
+
+            var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+
+            var photos = JsonSerializer.Deserialize<List<Photo>>(photosData,options);
+
+            foreach (var photo in photos)
+            {
+                context.Add(photo);
+            }
+
+
+            await context.SaveChangesAsync();        
+        }
     }
 }
