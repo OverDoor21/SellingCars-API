@@ -11,8 +11,10 @@ namespace API.Entities
         public bool IsMain{get;set;}
         public string PublicId {get;set;}
 
+        public int? UserId{get;set;}
+        public int? LotId{get;set;}
         public User User {get;set;}
-        public int UserId{get;set;}
+        public Lot Lot {get;set;}
 
     }
 }

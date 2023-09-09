@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Extensions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace API.Entities
 {
@@ -25,6 +26,7 @@ namespace API.Entities
         public string City {get;set;}
         public string Country {get;set;} 
         public Photo Photo {get;set;}
+        public List<Lot> Lots = new ();
 
         public int GetAge(){
             return DateofBirth.CalculateAge();
