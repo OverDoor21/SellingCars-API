@@ -28,9 +28,10 @@ namespace API.Entities
         public Photo Photo {get;set;}
         public List<Lot> Lots = new ();
 
-        public int GetAge(){
-            return DateofBirth.CalculateAge();
-        }
+        // public int GetAge(){
+        //     return DateofBirth.CalculateAge();
+        // }
 
+        
     }
 }   

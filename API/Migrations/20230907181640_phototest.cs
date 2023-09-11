@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class phototest : Migration
+    //Renamed from phototest to Phototest consequences unknown 
+    public partial class Phototest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

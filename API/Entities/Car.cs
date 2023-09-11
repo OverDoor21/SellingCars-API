@@ -7,6 +7,7 @@ namespace API.Entities
 {
     public class Car
     {
+        public int CarId {get;set;}
         public string Mark {get;set;}
         public int Year {get;set;}
         public int Price{get;set;}
@@ -16,5 +17,6 @@ namespace API.Entities
         public double Mileage{get;set;}
 
         public Lot Lot{get;set;}
+        public int LotId { get;set; }
     }
 }
