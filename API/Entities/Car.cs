@@ -11,10 +11,10 @@ namespace API.Entities
         public string Mark {get;set;}
         public int Year {get;set;}
         public int Price{get;set;}
-        public double VoluemeofTank{get;set;}
+        public int VoluemeofTank{get;set;}
         public string Color{get;set;}
         public string EnginePower{get;set;}
-        public double Mileage{get;set;}
+        public int Mileage{get;set;}
 
         public Lot Lot{get;set;}
         public int LotId { get;set; }

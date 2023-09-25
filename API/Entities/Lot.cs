@@ -10,6 +10,9 @@ namespace API.Entities
         public int LotId{get;set;}
         public string NameLot{get;set;}
         public int UserId{get;set;}
+
+        public int TechnicalConditionId{get;set;}
+
         public Car Car{get;set;}
         public CategoryCar CategoryCar {get;set;}
         public Description Description {get;set;}

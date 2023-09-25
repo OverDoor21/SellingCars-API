@@ -11,5 +11,6 @@ namespace API.Entities
         public string DescriptionText{get;set;}
 
         public Lot Lot {get;set;}
+        public int LotId { get;set; }
     }
 }
