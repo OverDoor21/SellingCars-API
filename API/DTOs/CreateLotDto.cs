@@ -8,7 +8,7 @@ namespace API.DTOs
     public class CreateLotDto
     {
         public string NameLot {get;set;}
-        public int UserId {get;set;}
+        public string CurrentUser{get;set;}
         public string User{get;set;}
         public string Mark   {get;set;}
         public int Year {get;set;}

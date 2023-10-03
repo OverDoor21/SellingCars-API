@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Entities;
-using API.Migrations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace API.Data
 {
@@ -31,48 +25,52 @@ namespace API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          modelBuilder.Entity<User>(user =>
-          {
-            user.HasOne(u => u.Photo)
-            .WithOne(p => p.User)
-            .HasForeignKey<Photo>(p => p.UserId);
 
-            user.HasMany(l => l.Lots)
-                .WithOne(user => user.User)
-                .HasForeignKey(l => l.UserId);
+          modelBuilder.Entity<User>(u =>{
+            u.HasMany(l => l.Lots)
+            .WithOne(u => u.User)
+            .HasForeignKey(k => k.UserId)
+            .IsRequired();
+
           });
 
-        //   modelBuilder.Entity<Car>(car =>
-        //     {
-        //         car.HasKey(c => c.CarId);
-        //     });
+          modelBuilder.Entity<Lot>(l => {
+            l.HasMany(p => p.Photos)
+            .WithOne(l => l.Lot)
+            .HasForeignKey(l => l.LotId)
+            .IsRequired();
 
-          modelBuilder.Entity<Lot>(lot =>{
-                lot.HasMany(p => p.Photos)
-                .WithOne(l => l.Lot)
-                .HasForeignKey(l => l.LotId);
+            l.HasOne(r => r.Region)
+            .WithMany()
+            .HasForeignKey(k => k.RegionId)
+            .IsRequired();
 
-               lot.HasOne(l => l.Car)
-                .WithOne(c => c.Lot)
-                .HasForeignKey<Car>(c => c.LotId);
+            l.HasOne(t => t.TechnicalCondition)
+            .WithMany()
+            .HasForeignKey(p => p.TechnicalConditionId)
+            .IsRequired();
 
-                lot.HasOne(Cat => Cat.CategoryCar)
-                .WithMany(l => l.Lots)
-                .HasForeignKey(c => c.LotId);
+            l.HasOne(i => i.CategoryCar)
+            .WithMany()
+            .HasForeignKey(b => b.CategoryId)
+            .IsRequired();
 
-                lot.HasOne(desc => desc.Description)
-                .WithOne()
-                .HasForeignKey<Lot>(l => l.LotId);
-
-                lot.HasOne(reg => reg.Region)
-                .WithMany(l => l.Lots)
-                .HasForeignKey(l => l.LotId);
-
-                lot.HasOne(tech => tech.TechnicalCondition)
-                .WithMany(l => l.Lots)
-                .HasForeignKey(l => l.LotId);
+            l.HasOne(c => c.Car)
+            .WithOne(l => l.Lot)
+            .HasForeignKey<Lot>(l => l.CarId)
+            .IsRequired(false);  
+            
+            l.HasOne(d => d.Description)
+            .WithOne(l => l.Lot)
+            .HasForeignKey<Lot>(d => d.DescriptionId )
+            .IsRequired(false);  
           });
 
+        
+
+     
+
+    
         modelBuilder.Entity<TechnicalCondition>().HasData(
             new { Id = 1, TechnicalCond = "New"},
             new { Id = 2, TechnicalCond = "Old"},
@@ -117,4 +115,4 @@ namespace API.Data
         
         
     }
-}
+    }

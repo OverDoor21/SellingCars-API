@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230911072635_addedCars")]
-    partial class addedCars
+    [Migration("20231002161544_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Car", b =>
                 {
-                    b.Property<int>("CarId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
@@ -45,22 +45,19 @@ namespace API.Migrations
                     b.Property<string>("Mark")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Mileage")
-                        .HasColumnType("float");
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<double>("VoluemeofTank")
-                        .HasColumnType("float");
+                    b.Property<int>("VoluemeofTank")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("CarId");
-
-                    b.HasIndex("LotId")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("Cars");
                 });
@@ -139,28 +136,61 @@ namespace API.Migrations
                     b.Property<string>("DescriptionText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LotId")
+                    b.Property<int>("LotsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LotId");
 
                     b.ToTable("Descriptions");
                 });
 
             modelBuilder.Entity("API.Entities.Lot", b =>
                 {
-                    b.Property<int>("LotId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryCarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DescriptionId")
                         .HasColumnType("int");
 
                     b.Property<string>("NameLot")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicalConditionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("LotId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId")
+                        .IsUnique();
+
+                    b.HasIndex("CategoryCarId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("DescriptionId")
+                        .IsUnique();
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TechnicalConditionId");
 
                     b.HasIndex("UserId");
 
@@ -179,6 +209,7 @@ namespace API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("LotId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("PublicId")
@@ -352,49 +383,35 @@ namespace API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("API.Entities.Car", b =>
-                {
-                    b.HasOne("API.Entities.Lot", "Lot")
-                        .WithOne("Car")
-                        .HasForeignKey("API.Entities.Car", "LotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lot");
-                });
-
-            modelBuilder.Entity("API.Entities.Description", b =>
-                {
-                    b.HasOne("API.Entities.Lot", "Lot")
-                        .WithMany()
-                        .HasForeignKey("LotId");
-
-                    b.Navigation("Lot");
-                });
-
             modelBuilder.Entity("API.Entities.Lot", b =>
                 {
-                    b.HasOne("API.Entities.CategoryCar", "CategoryCar")
+                    b.HasOne("API.Entities.Car", "Car")
+                        .WithOne("Lot")
+                        .HasForeignKey("API.Entities.Lot", "CarId");
+
+                    b.HasOne("API.Entities.CategoryCar", null)
                         .WithMany("Lots")
-                        .HasForeignKey("LotId")
+                        .HasForeignKey("CategoryCarId");
+
+                    b.HasOne("API.Entities.CategoryCar", "CategoryCar")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API.Entities.Description", "Description")
-                        .WithOne()
-                        .HasForeignKey("API.Entities.Lot", "LotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne("Lot")
+                        .HasForeignKey("API.Entities.Lot", "DescriptionId");
 
                     b.HasOne("API.Entities.Region", "Region")
-                        .WithMany("Lots")
-                        .HasForeignKey("LotId")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API.Entities.TechnicalCondition", "TechnicalCondition")
-                        .WithMany("Lots")
-                        .HasForeignKey("LotId")
+                        .WithMany()
+                        .HasForeignKey("TechnicalConditionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -403,6 +420,8 @@ namespace API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Car");
 
                     b.Navigation("CategoryCar");
 
@@ -419,7 +438,9 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Entities.Lot", "Lot")
                         .WithMany("Photos")
-                        .HasForeignKey("LotId");
+                        .HasForeignKey("LotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Entities.User", "User")
                         .WithOne("Photo")
@@ -430,26 +451,24 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.Car", b =>
+                {
+                    b.Navigation("Lot");
+                });
+
             modelBuilder.Entity("API.Entities.CategoryCar", b =>
                 {
                     b.Navigation("Lots");
                 });
 
+            modelBuilder.Entity("API.Entities.Description", b =>
+                {
+                    b.Navigation("Lot");
+                });
+
             modelBuilder.Entity("API.Entities.Lot", b =>
                 {
-                    b.Navigation("Car");
-
                     b.Navigation("Photos");
-                });
-
-            modelBuilder.Entity("API.Entities.Region", b =>
-                {
-                    b.Navigation("Lots");
-                });
-
-            modelBuilder.Entity("API.Entities.TechnicalCondition", b =>
-                {
-                    b.Navigation("Lots");
                 });
 
             modelBuilder.Entity("API.Entities.User", b =>

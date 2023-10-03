@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
 {
     public class Car
-    {
-        public int CarId {get;set;}
+    {   
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id {get;set;}
         public string Mark {get;set;}
         public int Year {get;set;}
         public int Price{get;set;}

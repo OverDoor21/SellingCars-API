@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -20,81 +21,69 @@ namespace API.Controllers
             this.context = context;
         }
 
-        [HttpGet("test")]
+        [HttpGet("regions")]
+        public async Task<ActionResult<Region>> GetRegions(){
+            var regions = await context.Regions.ToListAsync();
+            return Ok(regions);
+        }
 
-        public Task<string> test(){
-            string hello = "hello world!";
-            return Task.FromResult(hello);
+        [HttpGet("technicalcond")]
+        public async Task<ActionResult<Region>> GetTechnicalCond(){
+            var technicalcond = await context.TechnicalConditions.ToListAsync();
+            return Ok(technicalcond);
+        }
+
+         [HttpGet("categories")]
+        public async Task<ActionResult<Region>> GetCategories(){
+            var categ = await context.Categories.ToListAsync();
+            return Ok(categ);
         }
 
 
-        // [HttpPost("CreateLot")]
-        // public async Task<ActionResult<Lot>> Testing(CreateLotDto createLot){
-        //     Lot lot = new(){
-        //         NameLot = createLot.NameLot,
-        //         LotId = createLot.LotId,
-        //         UserId = createLot.UserId
-        //     };
-        //     context.Add(lot);
-        //     context.SaveChanges();
-        //     return  lot;
-        // }
 
 
-        [HttpPost("TestCreate")]
+        [HttpPost("createlot")]
         public async Task<ActionResult<Lot>> CreateLot(CreateLotDto createLot){
-    Lot lot = new()
-    {
-        NameLot = createLot.NameLot,
-        LotId = IdExtension.GenerateUniqueIntId(),
-        UserId = createLot.UserId
-    };
-
-    context.Add(lot);
+        var categoryid = await context.Categories.FirstAsync(c => c.Category == createLot.Category);
+        var regionId = await context.Regions.FirstAsync(r => r.RagionState == createLot.Region);
+        var techcond = await context.TechnicalConditions.FirstAsync(r => r.TechnicalCond == createLot.TechnicalCond);
+        var currentuser = await context.Users.FirstAsync(a => a.UserName == createLot.CurrentUser);
 
     var car = new Car
     {
-        CarId = IdExtension.GenerateUniqueIntId(),
         Mark = createLot.Mark,
         Year = createLot.Year,
         Color = createLot.Color,
         Price = createLot.Price,
         VoluemeofTank = createLot.VoluemeofTank,
         EnginePower = createLot.EnginePower,
-        Mileage = createLot.Mileage,
-        LotId = lot.LotId,
+        Mileage = createLot.Mileage, 
     };
-
-    var category = new CategoryCar
-    {
-        Category = createLot.Category,
-    };
+    await context.Cars.AddAsync(car);
+    await context.SaveChangesAsync();
 
     var description = new Description
     {
-        LotId = lot.LotId,
         DescriptionText = createLot.Description
     };
-
-    var region = new Region
-    {
-        RagionState = createLot.Region
-    };
-
-    var technicalCond = new TechnicalCondition
-    {
-        TechnicalCond = createLot.TechnicalCond
-    };
-
-    lot.Car = car;
-    lot.CategoryCar = category;
-    lot.Description = description;
-    lot.Region = region;
-    lot.TechnicalCondition = technicalCond;
-
+    await context.Descriptions.AddAsync(description);
     await context.SaveChangesAsync();
 
-    return lot;
+    Lot lot = new()
+    {
+        NameLot = createLot.NameLot,
+        UserId = currentuser.Id,
+        CarId = car.Id,
+        CategoryId = categoryid.Id,
+        RegionId = regionId.Id,
+        TechnicalConditionId = techcond.Id,
+        DescriptionId = description.Id
+    };
+
+    await context.AddAsync(lot);
+    await context.SaveChangesAsync();
+
+    return Ok();
 }
 
         
