@@ -9,7 +9,6 @@ namespace API.Entities
     public class Region
     {
         public int Id {get;set;}
-        // public int LotId{get;set;}
 
         public string RagionState{get;set;}
 

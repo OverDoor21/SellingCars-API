@@ -7,6 +7,8 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +17,12 @@ namespace API.Controllers
     public class LotControll : BaseApiController
     {
         private readonly DataContext context;
-        
+        private readonly ILotRepository lotrep;    
+        public readonly IMapper Mapper; 
 
-        public LotControll(DataContext context){
+        public LotControll(DataContext context, ILotRepository lotrep, IMapper mapper){
+            this.Mapper = mapper;
+            this.lotrep = lotrep;
             this.context = context;
         }
 
@@ -39,7 +44,12 @@ namespace API.Controllers
             return Ok(categ);
         }
 
-
+        [HttpGet("Lots")]
+        public async Task<ActionResult<IEnumerable<Lot>>> GetLots(){
+            var lots = await lotrep.GetLotsAsync();
+            var lotstoReturn = Mapper.Map<IEnumerable<UserlotDTO>>(lots);
+            return Ok(lotstoReturn);
+        }
 
 
         [HttpPost("createlot")]

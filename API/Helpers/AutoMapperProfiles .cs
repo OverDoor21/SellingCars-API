@@ -10,7 +10,10 @@ namespace API.Helpers
         public AutoMapperProfiles ()
         {
             CreateMap<User, MemberDTO>();
-            CreateMap<Photo,PhotoDTO>();
+            CreateMap<Photo, PhotoDTO>();
+            CreateMap<Lot,UserlotDTO>();
+            CreateMap<Car,UserlotDTO>();
+            CreateMap<Description,UserlotDTO>();
         }
     }
 }

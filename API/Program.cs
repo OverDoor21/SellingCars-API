@@ -36,16 +36,16 @@ app.MapControllers();
 using var scrope = app.Services.CreateScope();
 var services = scrope.ServiceProvider;
 
-try{
-    var context = services.GetRequiredService<DataContext>();
-    await context.Database.MigrateAsync();
-    await Seed.SeedUSers(context);
-    await Seed.SeedPhotos(context);
+// try{
+//     var context = services.GetRequiredService<DataContext>();
+//     await context.Database.MigrateAsync();
+//     await Seed.SeedUSers(context);
+//     await Seed.SeedPhotos(context);
 
-}
-catch(Exception ex){
-    var logger = services.GetService<ILogger<Program>>();
-    logger.LogError(ex,"Something caused an error during migration");
-}
+// }
+// catch(Exception ex){
+//     var logger = services.GetService<ILogger<Program>>();
+//     logger.LogError(ex,"Something caused an error during migration");
+// }
 
 app.Run();
