@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using API.Data;
@@ -45,9 +47,15 @@ namespace API.Controllers
         }
 
         [HttpGet("Lots")]
-        public async Task<ActionResult<IEnumerable<Lot>>> GetLots(){
-            var lots = await lotrep.GetLotsAsync();
-            var lotstoReturn = Mapper.Map<IEnumerable<UserlotDTO>>(lots);
+        // public async Task<ActionResult<IEnumerable<Lot>>> GetLots(){
+        //     var lots = await lotrep.GetLotsAsync();
+        //     var lotstoReturn = Mapper.Map<IEnumerable<UserlotDTO>>(lots);
+        //     return Ok(lotstoReturn);
+        // }
+
+         public async Task<ActionResult<IEnumerable<UserlotDTO>>> GetLots(){
+            var lots = await lotrep.GetLotsAsync(); 
+            var lotstoReturn = Mapper.Map<IEnumerable<Lot>>(lots);
             return Ok(lotstoReturn);
         }
 

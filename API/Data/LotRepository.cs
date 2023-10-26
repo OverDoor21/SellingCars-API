@@ -42,7 +42,6 @@ namespace API.Data
             .ProjectTo<UserlotDTO>(mapper.ConfigurationProvider)
             .ToListAsync();
         }
-
         public async Task<UserlotDTO> GetUserslotbyNameAscync(string NameLot)
         {
             return await context.Lots

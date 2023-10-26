@@ -7,6 +7,7 @@ namespace API.Errors
 {
     public class ApiException
     {
+        //Additional class for mode details about errors
         public ApiException(int statusCode, string message, string details)
         {
             StatusCode = statusCode;

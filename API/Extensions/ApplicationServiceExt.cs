@@ -20,6 +20,7 @@ namespace API.Extensions
             });
 
             services.AddCors();
+            //Added scoped for all depedency enjection in code
             services.AddScoped<ITokenService,TokenService>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ILotRepository, LotRepository>();

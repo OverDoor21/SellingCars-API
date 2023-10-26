@@ -11,9 +11,12 @@ namespace API.Helpers
         {
             CreateMap<User, MemberDTO>();
             CreateMap<Photo, PhotoDTO>();
+            //Automapping for all stuff connected to Lot
             CreateMap<Lot,UserlotDTO>();
-            CreateMap<Car,UserlotDTO>();
-            CreateMap<Description,UserlotDTO>();
+            CreateMap<Car, UserlotDTO>();
+            // CreateMap<Description,UserlotDTO>();
+            // CreateMap<CategoryCar,UserlotDTO>();
+            // CreateMap<Photo, UserlotDTO>();
         }
     }
 }

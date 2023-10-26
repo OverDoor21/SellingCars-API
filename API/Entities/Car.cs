@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API.Entities
 {
@@ -15,6 +16,7 @@ namespace API.Entities
         public string EnginePower{get;set;}
         public int Mileage{get;set;}
 
+        [JsonIgnore]   
         public Lot Lot{get;set;}
         public int LotId { get;set; }
     }

@@ -16,7 +16,7 @@ namespace API.Data
         public DbSet<TechnicalCondition> TechnicalConditions {get;set;}
         
 
-        //Applies a Ext of DateTimeOnly for EF without this you cant work with dataTimeOnly
+        //Applies a Ext of DateTimeOnly for EF without this you cant work properly with dataTimeOnly
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
             optionsBuilder.UseSqlServer(
             "Data Source=DESKTOP-KPNDRJ8;Initial Catalog=CarShop;Integrated Security=True;TrustServerCertificate=True;",
